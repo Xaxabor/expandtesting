@@ -1,5 +1,5 @@
 import {test, expect, type Page} from '@playwright/test';
-const { Common } = require('./common');
+const { Common } = require('./Common');
 
 
 export class Notes extends Common {
