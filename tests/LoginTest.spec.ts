@@ -8,7 +8,7 @@ const baseURL = process.env.BASE_URL;
 
 // This is a sample test case to demonstrate the usage of the Notes page object
 test.beforeEach(async ({ page }) => {
-  await page.goto(baseURL+'notes/app/login');
+  await page.goto('https://practice.expandtesting.com/notes/app/login');
 });
 
 test('Test 1: Verify invalid email and invalid password login', 
