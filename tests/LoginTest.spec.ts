@@ -1,9 +1,14 @@
 import {test, request, expect, type Page} from '@playwright/test';
 import { Login } from '../page-object/Login';
+import  dotenv from 'dotenv';
+
+// Read environment variables from file
+dotenv.config(); 
+const baseURL = process.env.BASE_URL;
 
 // This is a sample test case to demonstrate the usage of the Notes page object
 test.beforeEach(async ({ page }) => {
-  await page.goto('notes/app/login');
+  await page.goto(baseURL+'notes/app/login');
 });
 
 test('Test 1: Verify invalid email and invalid password login', 
