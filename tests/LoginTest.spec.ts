@@ -11,11 +11,12 @@ test.beforeEach(async ({ page }) => {
   await page.goto(baseURL+'/notes/app/login');
 });
 
-test('Test 1: Verify invalid email and invalid password login', 
+test('Test 1: Verify invalid email and invalid short password login', 
   async ({ page }) => {  
   const loginPage = new Login(page);
-  loginPage.login('invalidUser', 'invalidPassword');
+  loginPage.login('invalidUser', 'inpas');
   await loginPage.verifyInvalidEmailMessage();
+  await loginPage.verifyPasswordLengthErrorMessage();
 })
 
 test('Test 2: Verify null email and null password login', 
@@ -55,9 +56,38 @@ test('Test 6: Verify valid email and null password login',
   await loginPage.verifyPasswordRequiredMessage();
 })
 
-test('Test 7: Verify valid email and invalid password login', 
+test('Test 7: Verify valid correct email and invalid short password login', 
   async ({ page }) => {  
   const loginPage = new Login(page);
-  loginPage.login('demo111@gmail.com', 'invalidPassword');
+  loginPage.login('demo111@gmail.com', 'inpas');
+  await loginPage.verifyPasswordLengthErrorMessage();
+})
+
+test('Test 8: Verify correct email and Incorrect password login', 
+  async ({ page }) => {  
+  const loginPage = new Login(page);
+  loginPage.login('demo111@gmail.com', 'demo222');
   await loginPage.verifyIncorrectEmailOrPasswordMessage();
+})
+
+test('Test 9: Verify valid Incorrect email and Correct password login', 
+  async ({ page }) => {  
+  const loginPage = new Login(page);
+  loginPage.login('demo222@gmail.com', 'demo111');
+  await loginPage.verifyIncorrectEmailOrPasswordMessage();
+})
+
+test('Test 10: Verify invalid email and invalid long password login', 
+  async ({ page }) => {  
+  const loginPage = new Login(page);
+  loginPage.login('invalidUser', 'longlonglonglonglonglonglonglon');
+  await loginPage.verifyInvalidEmailMessage();
+  await loginPage.verifyPasswordLengthErrorMessage();
+})
+
+test('Test 11: Verify valid correct email and invalid long password login', 
+  async ({ page }) => {  
+  const loginPage = new Login(page);
+  loginPage.login('demo111@gmail.com', 'longlonglonglonglonglonglonglon');
+  await loginPage.verifyPasswordLengthErrorMessage();
 })

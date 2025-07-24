@@ -13,6 +13,7 @@ export class Login extends Common {
     readonly emailRequiredError = '//div[normalize-space(text())="Email address is required"]';
     readonly passwordRequiredError = '//div[normalize-space(text())="Password is required"]';
     readonly incorrectEmailOrPasswordError = '//div[normalize-space(text())="Incorrect email address or password"]';
+    readonly passwordLengthError = '//div[normalize-space(text())="Password should be between 6 and 30 characters"]';
 
     constructor(page: Page) {
         super(page);
@@ -42,6 +43,11 @@ export class Login extends Common {
 
     async verifyIncorrectEmailOrPasswordMessage() {
         const textLocator = this.page.locator(this.incorrectEmailOrPasswordError);
+        await expect(textLocator).toBeVisible();
+    }
+
+    async verifyPasswordLengthErrorMessage() {
+        const textLocator = this.page.locator(this.passwordLengthError);
         await expect(textLocator).toBeVisible();
     }
 }
